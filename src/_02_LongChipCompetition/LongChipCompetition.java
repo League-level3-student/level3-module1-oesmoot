@@ -15,9 +15,48 @@ public class LongChipCompetition {
 
     public static void main(String[] args) {
         LongChipCompetition lcc = new LongChipCompetition();
+        lcc.initializeBeatles();
+    }
+    double GeorgeLongestChip = 0;
+    double JohnLongestChip = 0;
+    double PaulLongestChip = 0;
+    double RingoLongestChip = 0;
+    public void findLongestChip() {
+    	for(int i = 0; i<theBeatles.size(); i++) {
+    		for(int j = 0; j<theBeatles.get(i).getChips().size(); j++) {
+    			if(i==0) {
+    				if(theBeatles.get(i).getChips().get(j).getLength() > GeorgeLongestChip) {
+    					GeorgeLongestChip = theBeatles.get(i).getChips().get(j).getLength(); 
+    				}
+    			}
+    			else if(i==1) {
+    				if(theBeatles.get(i).getChips().get(j).getLength() > JohnLongestChip) {
+    					JohnLongestChip = theBeatles.get(i).getChips().get(j).getLength(); 
+    				}
+    			}
+    			else if(i==2) {
+    				if(theBeatles.get(i).getChips().get(j).getLength() > PaulLongestChip) {
+    					PaulLongestChip = theBeatles.get(i).getChips().get(j).getLength(); 
+    				}
+    			}
+    			else {
+    				if(theBeatles.get(i).getChips().get(j).getLength() > RingoLongestChip) {
+    					RingoLongestChip = theBeatles.get(i).getChips().get(j).getLength(); 
+    				}
+    			}
+    		}
+    	}
+    	if(GeorgeLongestChip >JohnLongestChip && GeorgeLongestChip>PaulLongestChip &&GeorgeLongestChip>RingoLongestChip) {
+    		System.out.println("George has the longest chip!");
+    	}
+    	if(JohnLongestChip >GeorgeLongestChip && JohnLongestChip>PaulLongestChip &&JohnLongestChip>RingoLongestChip) {
+    		System.out.println("John has the longest chip!");
+    	}
+    	if(PaulLongestChip >JohnLongestChip && PaulLongestChip>GeorgeLongestChip &&GeorgeLongestChip>RingoLongestChip) {
+
 
     }
-
+    
     private void initializeBeatles() {
         Beatle george = new Beatle("George");
         Beatle john = new Beatle("John");
