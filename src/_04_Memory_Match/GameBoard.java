@@ -49,7 +49,7 @@ public class GameBoard extends JFrame implements ActionListener {
         //    Also, add action listeners to each Card object and then add each
         //    of the Card objects to the ArrayList of Cards.
         for(int i = 0; i< TOTAL_CARDS; i++) {
-        	Card card = new Card(i/4);
+        	Card card = new Card((i/4) +1);
         	card.addActionListener(this);
         	cards.add(card);
         }
