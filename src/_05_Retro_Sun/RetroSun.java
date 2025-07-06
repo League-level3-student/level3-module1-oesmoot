@@ -11,7 +11,6 @@ import processing.core.PApplet;
 public class RetroSun extends PApplet {
     static final int WIDTH = 800;
     static final int HEIGHT = 600;
-
     // RGB colors
     int[] sunColors = {
             color(212, 202, 11), color(214, 198, 30), color(211, 170, 26),
@@ -20,7 +19,7 @@ public class RetroSun extends PApplet {
             color(217, 0, 151) };
 
     int bgColor = color(31, 0, 48);
-
+  
     @Override
     public void settings() {
         // 1. Set the size of your sketch to at least 800 width, 600 height
@@ -29,6 +28,8 @@ public class RetroSun extends PApplet {
 
     @Override
     public void setup() {
+    	
+    	    
         // 2. Set bgColor as the background color
         background(bgColor);
     }
@@ -36,6 +37,7 @@ public class RetroSun extends PApplet {
     float h = 60;
     float x = 150;
     float w = 500;
+
     @Override
     public void draw() {
         /*
@@ -160,13 +162,29 @@ public class RetroSun extends PApplet {
          *
          * Using a list to manage moving multiple missing sun sections
          */
-
+        Rectangle[] rects = new Rectangle[3];
+        for(int i = 0; i< rects.length; i++) {
+	    	rects[i].x =150;
+	    	rects[i].y =(550 -(i*60));
+	    	rects[i].w =500;
+	    	rects[i].h =map(rects[i].y,550,350,60,0);
+	    	
+	    }
+        for(int i = 0; i< rects.length; i++) {
+        	 rects[i].y--;
+             rects[i].h = map(y,550,350,60,0);
+             if(y<350) {
+             	y = 550;
+             }
+             rect(rects[i].x, rects[i].y, rects[i].w, rects[i].h);
+        }
+       
+        
         // Figure out how to create the other missing sun sections using the
         // code you wrote for the 1 missing sun section.
         // HINT: You can use the Rectangle class defined below to create
         // a list of Rectangles.
-        Rectangle[] rects = new Rectangle[5];
-        
+       
         /*
          * PART 6: Adding extras
          *
