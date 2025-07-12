@@ -33,11 +33,13 @@ public class RetroSun extends PApplet {
         // 2. Set bgColor as the background color
         background(bgColor);
     }
-    float y = 550;
-    float h = 60;
-    float x = 150;
-    float w = 500;
-
+    //float y = 550;
+    //float h = 60;
+    //float x = 150;
+    //float w = 500;
+    Rectangle[] rects = new Rectangle[3];
+   
+    
     @Override
     public void draw() {
         /*
@@ -118,7 +120,7 @@ public class RetroSun extends PApplet {
           
         // *The width can be 2 times the radius
           
-        rect(x,y,w,h);
+       // rect(x,y,w,h);
         // Do you see a section missing from the sun like in the 3rd image?
 
         
@@ -128,11 +130,11 @@ public class RetroSun extends PApplet {
          * To move a section upwards each rectangle's y value needs to decrease. To make
          * the section get smaller, its height needs to also decrease.
          */
-        y--;
-        h = map(y,550,350,60,0);
-        if(y<350) {
-        	y = 550;
-        }
+        //y--;
+        //h = map(y,550,350,60,0);
+        //if(y<350) {
+        //	y = 550;
+        //}
         // Decrease the y variable of the rectangular section created in PART 3.
         // If there isn't a variable, declare a float variable OUTSIDE of the
         // draw function AND initialize it in the setup() function.
@@ -162,21 +164,8 @@ public class RetroSun extends PApplet {
          *
          * Using a list to manage moving multiple missing sun sections
          */
-        Rectangle[] rects = new Rectangle[3];
-        for(int i = 0; i< rects.length; i++) {
-	    	rects[i].x =150;
-	    	rects[i].y =(550 -(i*60));
-	    	rects[i].w =500;
-	    	rects[i].h =map(rects[i].y,550,350,60,0);
-	    	
-	    }
-        for(int i = 0; i< rects.length; i++) {
-        	 rects[i].y--;
-             rects[i].h = map(y,550,350,60,0);
-             if(y<350) {
-             	y = 550;
-             }
-             rect(rects[i].x, rects[i].y, rects[i].w, rects[i].h);
+        for(int i =0; i<rects.length; i++) {
+        	rects[i].drawRect(rects[i].x, rects[i].y, rects[i].w, rects[i].h);
         }
        
         
@@ -228,6 +217,9 @@ public class RetroSun extends PApplet {
             this.y = y;
             this.w = w;
             this.h = h;
+        }
+        public void drawRect(float x, float y, float w, float h) {
+        	rect(x,y,w,h);
         }
     }
 }
