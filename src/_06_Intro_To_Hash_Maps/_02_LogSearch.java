@@ -1,7 +1,26 @@
 package _06_Intro_To_Hash_Maps;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
 
-public class _02_LogSearch {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+public class _02_LogSearch implements ActionListener {
+	
+	_02_LogSearch(){
+		
+	}
+	
+	HashMap<Integer, String> log = new HashMap<Integer, String>();
+	JFrame frame = new JFrame();
+	JPanel panel = new JPanel();
+	JButton button1 = new JButton();
+	JButton button2 = new JButton();
+	JButton button3 = new JButton();
     /*
      * Crate a HashMap of Integers for the keys and Strings for the values.
      * Create a GUI with three buttons.
@@ -33,5 +52,38 @@ public class _02_LogSearch {
      *      If this ID exists in the HashMap, remove it. Otherwise, notify the
      *      user that the ID is not in the list.
      */
+	public void setup() {
+		frame.add(panel);
+		panel.add(button1);
+		panel.add(button2);
+		panel.add(button3);
+		button1.addActionListener(this);
+		button2.addActionListener(this);
+		button3.addActionListener(this);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		button1.setText("Add entry");
+		button2.setText("Search by ID");
+		button3.setText("View list");
+		frame.pack();
+	}
+	
+	public static void main(String[] args) {
+		_02_LogSearch logSearch = new _02_LogSearch();
+		logSearch.setup();
+	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		JButton buttonClicked = (JButton)e.getSource();
+		if(buttonClicked == button1) {
+			log.put(Integer.getInteger(JOptionPane.showInputDialog("enter a number")), JOptionPane.showInputDialog("enter a name"));
+		}
+		if(buttonClicked == button2) {
+			JOptionPane.showMessageDialog(null, "the person you searched for:" + log.get(Integer.getInteger(JOptionPane.showInputDialog("input an ID"))));
+		}
+	}
+	
+	
 }

@@ -11,6 +11,7 @@ import processing.core.PApplet;
 public class RetroSun extends PApplet {
     static final int WIDTH = 800;
     static final int HEIGHT = 600;
+    Rectangle[] rects = new Rectangle[5];
     // RGB colors
     int[] sunColors = {
             color(212, 202, 11), color(214, 198, 30), color(211, 170, 26),
@@ -28,7 +29,9 @@ public class RetroSun extends PApplet {
 
     @Override
     public void setup() {
-    	
+    	for(int i = 0; i<rects.length; i++) {
+    		rects[i] = new Rectangle(150,550 - (i*50),500,map(550-(i*50),550,350,60,0));
+    	}
     	    
         // 2. Set bgColor as the background color
         background(bgColor);
@@ -37,7 +40,8 @@ public class RetroSun extends PApplet {
     //float h = 60;
     //float x = 150;
     //float w = 500;
-    Rectangle[] rects = new Rectangle[3];
+    
+    
    
     
     @Override
@@ -166,6 +170,11 @@ public class RetroSun extends PApplet {
          */
         for(int i =0; i<rects.length; i++) {
         	rects[i].drawRect(rects[i].x, rects[i].y, rects[i].w, rects[i].h);
+        	rects[i].y -=1;
+        	rects[i].h = map(rects[i].y,550,350,60,0);
+        	if(rects[i].y<350) {
+                rects[i].y = 550;
+                }
         }
        
         
@@ -185,6 +194,7 @@ public class RetroSun extends PApplet {
 
     static public void main(String[] passedArgs) {
         PApplet.main(RetroSun.class.getName());
+        
     }
 
     /*********************** DO NOT MODIFY THE CODE BELOW ********************/
