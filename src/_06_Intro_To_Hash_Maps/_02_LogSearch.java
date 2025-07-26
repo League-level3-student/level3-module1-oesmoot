@@ -78,10 +78,15 @@ public class _02_LogSearch implements ActionListener {
 		// TODO Auto-generated method stub
 		JButton buttonClicked = (JButton)e.getSource();
 		if(buttonClicked == button1) {
-			log.put(Integer.getInteger(JOptionPane.showInputDialog("enter a number")), JOptionPane.showInputDialog("enter a name"));
+			log.put(Integer.parseInt(JOptionPane.showInputDialog("enter a number")), JOptionPane.showInputDialog("enter a name"));
 		}
 		if(buttonClicked == button2) {
-			JOptionPane.showMessageDialog(null, "the person you searched for:" + log.get(Integer.getInteger(JOptionPane.showInputDialog("input an ID"))));
+			JOptionPane.showMessageDialog(null, "the person you searched for is: " + log.get(Integer.parseInt(JOptionPane.showInputDialog("input an ID"))));
+		}
+		if(buttonClicked == button3) {
+			for(Integer i: log.keySet()) {
+				System.out.println("id: " + i + " name:" + log.get(i));
+			}
 		}
 	}
 	
