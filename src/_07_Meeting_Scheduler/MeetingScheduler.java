@@ -28,7 +28,12 @@ public class MeetingScheduler {
         for(String s: person1.getSchedule().keySet()) {
         	ArrayList<Integer> p1List = person1.getSchedule().get(s);
         	ArrayList<Integer> p2List = person2.getSchedule().get(s);
-        	// loop through one list and see what matches up with the other wiht .contains
+        	// loop through one list and see what matches up with the other with .contains
+        	for(String x: person2.getSchedule().keySet()) {
+        		if(p1List.get(s).contains(p2List.get(x))) {
+        			
+        		}
+        	}
         }
         return null;
     }
