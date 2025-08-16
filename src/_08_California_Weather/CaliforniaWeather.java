@@ -1,6 +1,14 @@
 package _08_California_Weather;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 
 /*
  * OBJECTIVE:
@@ -27,19 +35,41 @@ import java.util.HashMap;
  * temperature, you can get a free API key at: https://openweathermap.org/api
  */
 
-public class CaliforniaWeather {
-    
+public class CaliforniaWeather implements ActionListener {
+JFrame frame = new JFrame();
+JPanel panel = new JPanel();
+JButton cityButton = new JButton("city");
+JButton weatherButton = new JButton("weather");
+JButton temperatureButton = new JButton("temperature");
     void start() {
+    	frame.add(panel);
+    	frame.setVisible(true);
+    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	panel.add(cityButton);
+    	panel.add(weatherButton);
+    	panel.add(temperatureButton);
+    	cityButton.addActionListener(this);
+    	weatherButton.addActionListener(this);
+    	temperatureButton.addActionListener(this);
+    	frame.pack();
+    	
+    	
         HashMap<String, WeatherData> weatherData = Utilities.getWeatherData();
         
         // All city keys have the first letter capitalized of each word
-        String cityName = Utilities.capitalizeWords( "National City" );
+        String cityName = Utilities.capitalizeWords( JOptionPane.showInputDialog("input a city name!"));
+        //String cityName = Utilities.capitalizeWords( "National City" );
         WeatherData datum = weatherData.get(cityName);
-        
+        //cityName = JOptionPane.showInputDialog("input a city name!");
         if( datum == null ) {
             System.out.println("Unable to find weather data for: " + cityName);
         } else {
             System.out.println(cityName + " is " + datum.weatherSummary + " with a temperature of " + datum.temperatureF + " F");
         }
     }
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }

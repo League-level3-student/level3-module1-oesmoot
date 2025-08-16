@@ -29,12 +29,19 @@ public class MeetingScheduler {
         	ArrayList<Integer> p1List = person1.getSchedule().get(s);
         	ArrayList<Integer> p2List = person2.getSchedule().get(s);
         	// loop through one list and see what matches up with the other with .contains
-        	for(String x: person2.getSchedule().keySet()) {
-        		if(p1List.get(s).contains(p2List.get(x))) {
-        			
+        	for(Integer i: p1List) {
+        		if(p2List.contains(i)) {
+        			openTimes.addAvailability(s, i);
         		}
         	}
+        	
+//        	for(String x: person2.getSchedule().keySet()) {
+//        		ArrayList<Integer> p2List = person2.getSchedule().get(x);
+//        		if(p1List.get(s).contains(p2List.get(x))) {
+//        			
+//        		}
+//        	}
         }
-        return null;
+        return openTimes;
     }
 }
