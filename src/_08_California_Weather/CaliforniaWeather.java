@@ -2,7 +2,9 @@ package _08_California_Weather;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -54,22 +56,48 @@ JButton temperatureButton = new JButton("temperature");
     	frame.pack();
     	
     	
-        HashMap<String, WeatherData> weatherData = Utilities.getWeatherData();
-        
-        // All city keys have the first letter capitalized of each word
-        String cityName = Utilities.capitalizeWords( JOptionPane.showInputDialog("input a city name!"));
-        //String cityName = Utilities.capitalizeWords( "National City" );
-        WeatherData datum = weatherData.get(cityName);
-        //cityName = JOptionPane.showInputDialog("input a city name!");
-        if( datum == null ) {
-            System.out.println("Unable to find weather data for: " + cityName);
-        } else {
-            System.out.println(cityName + " is " + datum.weatherSummary + " with a temperature of " + datum.temperatureF + " F");
-        }
+       
     }
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		HashMap<String, WeatherData> weatherData = Utilities.getWeatherData();
 		// TODO Auto-generated method stub
-		
+		JButton buttonPressed = (JButton) (e.getSource());
+		if (buttonPressed == cityButton) {
+		        
+		        // All city keys have the first letter capitalized of each word
+		        String cityName = Utilities.capitalizeWords( JOptionPane.showInputDialog("input a city name!"));
+		        //String cityName = Utilities.capitalizeWords( "National City" );
+		        WeatherData datum = weatherData.get(cityName);
+		        //cityName = JOptionPane.showInputDialog("input a city name!");
+		        if( datum == null ) {
+		            System.out.println("Unable to find weather data for: " + cityName);
+		        } else {
+		            JOptionPane.showMessageDialog(null, cityName + " is " + datum.weatherSummary + " with a temperature of " + datum.temperatureF + " F");
+		        }
+		}
+		if(buttonPressed == weatherButton) {
+			ArrayList<String> cities = new ArrayList<String>();
+			String output = "";
+			String weatherCondition = Utilities.capitalizeWords(JOptionPane.showInputDialog("input some weather data!"));
+			int outputNum = 0;
+			for(Entry<String,WeatherData> entry: weatherData.entrySet()) {
+				String city = entry.getKey();
+				WeatherData wd = entry.getValue();
+				if(wd.weatherSummary.contains(weatherCondition)) {
+					cities.add(city);
+					outputNum ++;
+					if(outputNum %10 == 0) {
+					output += "\n";
+					}
+					output += city+ ", ";
+				}
+			}
+			JOptionPane.showMessageDialog(null, output);
+		}
+		if(buttonPressed == temperatureButton) {
+			String temperatureRange = Utilities.capitalizeWords(JOptionPane.showInputDialog("input a range of temperatures!"));
+			
+		}
 	}
 }
