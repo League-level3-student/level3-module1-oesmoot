@@ -96,8 +96,24 @@ JButton temperatureButton = new JButton("temperature");
 			JOptionPane.showMessageDialog(null, output);
 		}
 		if(buttonPressed == temperatureButton) {
-			String temperatureRange = Utilities.capitalizeWords(JOptionPane.showInputDialog("input a range of temperatures!"));
-			
+			ArrayList<String> cities = new ArrayList<String>();
+			String output = "";
+			int outputNum = 0;
+			String temperatureMin = Utilities.capitalizeWords(JOptionPane.showInputDialog("input a minimum temperature!"));
+			String temperatureMax = Utilities.capitalizeWords(JOptionPane.showInputDialog("input a maximum temperature!"));
+			for(Entry<String, WeatherData> entry: weatherData.entrySet()) {
+				String city = entry.getKey();
+				WeatherData wd = entry.getValue();
+				if(wd.temperatureF>= Double.parseDouble(temperatureMin)&& wd.temperatureF<= Double.parseDouble(temperatureMax)) {
+					cities.add(city);
+					outputNum++;
+					if(outputNum%10 == 0) {
+						output += "\n";
+					}
+					output += city+ ", ";
+				}
+			}
+			JOptionPane.showMessageDialog(null, output);
 		}
 	}
 }
