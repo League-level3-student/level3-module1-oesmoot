@@ -3,11 +3,14 @@ package _09_World_Clocks;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map.Entry;
 import java.util.TimeZone;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.Timer;
@@ -47,25 +50,21 @@ public class WorldClocks implements ActionListener {
     String city;
     String dateStr;
     String timeStr;
+    String entry = "";
+    JButton newClock = new JButton("add a new world clock");
+    HashMap<String, TimeZone> cityTimes = new HashMap<String, TimeZone>();
     
     public WorldClocks() {
         clockUtil = new ClockUtilities();
+        
 
         // The format for the city must be: city, country (all caps)
-        city = "San Diego, US";
-        timeZone = clockUtil.getTimeZoneFromCityName(city);
-        
-        Calendar calendar = Calendar.getInstance(timeZone);
-        String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
-        String dayOfWeek = calendar.getDisplayName( Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
-        dateStr = dayOfWeek + " " + month + " " + calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.YEAR);
-        
+       
         System.out.println(dateStr);
 
         // Sample starter program
         frame = new JFrame();
         panel = new JPanel();
-        JButton newClock = new JButton("add a new world clock");
         panel.add(newClock); 
         newClock.addActionListener(this);
         textArea = new JTextArea();
@@ -73,9 +72,7 @@ public class WorldClocks implements ActionListener {
         frame.setVisible(true);
         frame.setSize(100, 100);
         frame.add(panel);
-        panel.add(textArea);
-        textArea.setText(city + "\n" + dateStr);
-        
+        panel.add(textArea);        
         // This Timer object is set to call the actionPerformed() method every
         // 1000 milliseconds
         timer = new Timer(1000, this);
@@ -83,14 +80,28 @@ public class WorldClocks implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent arg0) {
-        Calendar c = Calendar.getInstance(timeZone);
-        String militaryTime = c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
-        String twelveHourTime = " [" + c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND) + "]";
-        timeStr = militaryTime + twelveHourTime;
-        
-        System.out.println(timeStr);
-        textArea.setText(city + "\n" + dateStr + "\n" + timeStr);
-        frame.pack();
+    public void actionPerformed(ActionEvent e) {
+    	if(e.getSource() == newClock) {
+    		entry = JOptionPane.showInputDialog("enter a city!");
+    		cityTimes.put(entry, clockUtil.getTimeZoneFromCityName(entry));
+    	}
+    	else {
+    		textArea.setText("");
+    		for(Entry<String, TimeZone> entry: cityTimes.entrySet()) {
+    			String cityStr = entry.getKey();
+    			TimeZone tz = entry.getValue();
+    			Calendar calendar = Calendar.getInstance(tz);
+    	        String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+    	        String dayOfWeek = calendar.getDisplayName( Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+    	        dateStr = dayOfWeek + " " + month + " " + calendar.get(Calendar.DAY_OF_MONTH) + " " + calendar.get(Calendar.YEAR);
+    	        String militaryTime = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND);
+    	        String twelveHourTime = " [" + calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND) + "]";
+    	        timeStr = militaryTime + twelveHourTime;
+    			textArea.setText(textArea.getText() + "\n\n" + cityStr + "\n" + dateStr + "\n" + timeStr);
+    			
+    		}
+    		
+    	        frame.pack();
+    	}
     }
 }
